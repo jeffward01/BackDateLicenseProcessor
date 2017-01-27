@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMPG.USL.BackDateProcessor.Cmd", "UMPG.USL.BackDateProcessor.Cmd\UMPG.USL.BackDateProcessor.Cmd.csproj", "{8D31EB5B-F63A-46A4-8F48-A4B8401B8DC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMPG.USL.BackDateProcessor.Business", "UMPG.USL.BackDateProcessor.Business\UMPG.USL.BackDateProcessor.Business.csproj", "{9BCBA846-5453-4495-9401-30B4DC6438AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMPG.USL.Models", "..\..\Shared\UMPG.USL.Models\UMPG.USL.Models.csproj", "{47A581C5-6A3D-4EE4-94E8-CD088E44E288}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMPG.USL.Common", "..\..\Shared\UMPG.USL.Common\UMPG.USL.Common.csproj", "{72C862BE-D318-4118-BD78-FB9E2DB99A4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMPG.USL.BackDateProcessor.Data", "UMPG.USL.BackDateProcessor.Data\UMPG.USL.BackDateProcessor.Data.csproj", "{1F649C45-30DA-4B44-BB9A-0E12AA2546BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D31EB5B-F63A-46A4-8F48-A4B8401B8DC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D31EB5B-F63A-46A4-8F48-A4B8401B8DC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D31EB5B-F63A-46A4-8F48-A4B8401B8DC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D31EB5B-F63A-46A4-8F48-A4B8401B8DC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BCBA846-5453-4495-9401-30B4DC6438AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BCBA846-5453-4495-9401-30B4DC6438AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BCBA846-5453-4495-9401-30B4DC6438AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BCBA846-5453-4495-9401-30B4DC6438AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47A581C5-6A3D-4EE4-94E8-CD088E44E288}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47A581C5-6A3D-4EE4-94E8-CD088E44E288}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47A581C5-6A3D-4EE4-94E8-CD088E44E288}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47A581C5-6A3D-4EE4-94E8-CD088E44E288}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72C862BE-D318-4118-BD78-FB9E2DB99A4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72C862BE-D318-4118-BD78-FB9E2DB99A4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72C862BE-D318-4118-BD78-FB9E2DB99A4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72C862BE-D318-4118-BD78-FB9E2DB99A4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F649C45-30DA-4B44-BB9A-0E12AA2546BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F649C45-30DA-4B44-BB9A-0E12AA2546BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F649C45-30DA-4B44-BB9A-0E12AA2546BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F649C45-30DA-4B44-BB9A-0E12AA2546BB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
