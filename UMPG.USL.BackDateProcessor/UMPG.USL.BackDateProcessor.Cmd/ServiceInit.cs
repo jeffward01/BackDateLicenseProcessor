@@ -42,14 +42,12 @@ namespace UMPG.USL.BackDateProcessor.Cmd
 
             builder.RegisterType<TimeSpanUtil>().As<ITimeSpanUtil>();
             builder.RegisterType<ServiceManager>().As<IServiceManager>();
-
             builder.RegisterType<ConfigurationManager>().As<IConfigurationManager>();
             builder.RegisterType<DataHarmonizationLogManager>().As<IDataHarmonizationLogManager>();
             builder.RegisterType<ServiceManager>().As<IServiceManager>();
             builder.RegisterType<SnapshotLicenseManager>().As<ISnapshotLicenseManager>();
             builder.RegisterType<SnapshotManager>().As<ISnapshotManager>();
             builder.RegisterType<SnapshotLicenseProductManager>().As<ISnapshotLicenseProductManager>();
-
             builder.RegisterType<DataHarmonizationManager>().As<IDataHarmonizationManager>();
             var container = builder.Build();
 
@@ -58,8 +56,8 @@ namespace UMPG.USL.BackDateProcessor.Cmd
 
             HostFactory.Run(dataHarmonizationService =>
             {
-                dataHarmonizationService.SetServiceName("DataHarmonizationProcessor");
-                dataHarmonizationService.SetDisplayName("DataHarmonizationProcessor");
+                dataHarmonizationService.SetServiceName("LicenseSnapshotBackDateProcessor");
+                dataHarmonizationService.SetDisplayName("LicenseSnapshotBackDateProcessor");
 
                 dataHarmonizationService.Service<LicenseSnapshotBackDateService>();
                 dataHarmonizationService.UseAutofacContainer(container);

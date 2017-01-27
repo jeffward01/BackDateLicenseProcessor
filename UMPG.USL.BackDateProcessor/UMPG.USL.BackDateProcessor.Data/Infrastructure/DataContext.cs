@@ -14,7 +14,6 @@ namespace UMPG.USL.BackDateProcessor.Data.Infrastructure
 {
     public class DataContext : DbContext
     {
-
         public DbSet<Contact> Contacts { get; set; }
 
         public DbSet<ContactDefault> ContactDefaults { get; set; }
@@ -150,6 +149,7 @@ namespace UMPG.USL.BackDateProcessor.Data.Infrastructure
 
         //Data Harmonizaiton Tables
         public DbSet<Snapshot_License> Snapshot_Licenses { get; set; }
+
         public DbSet<Snapshot_LicenseProduct> Snapshot_LicenseProducts { get; set; }
 
         public DbSet<Snapshot_LabelGroup> Snapshot_LabelGroups { get; set; }
@@ -222,7 +222,7 @@ namespace UMPG.USL.BackDateProcessor.Data.Infrastructure
             modelBuilder.Entity<License>().HasRequired(c => c.LicenseType).WithMany().HasForeignKey(c => c.LicenseTypeId);
             modelBuilder.Entity<License>().HasRequired(c => c.LicensePriority).WithMany().HasForeignKey(c => c.PriorityId);
             modelBuilder.Entity<License>().HasRequired(c => c.LicenseStatus).WithMany().HasForeignKey(c => c.LicenseStatusId);
-            modelBuilder.Entity<License>().HasRequired(c => c.LicenseMethod).WithMany().HasForeignKey(c => c.LicenseMethodId);   
+            modelBuilder.Entity<License>().HasRequired(c => c.LicenseMethod).WithMany().HasForeignKey(c => c.LicenseMethodId);
             modelBuilder.Entity<License>().Ignore(c => c.ProductsNo);
             modelBuilder.Entity<License>().Ignore(c => c.Label);
             modelBuilder.Entity<License>().Ignore(c => c.LicenseSpecialStatusList);
@@ -260,7 +260,6 @@ namespace UMPG.USL.BackDateProcessor.Data.Infrastructure
             //modelBuilder.Entity<LicenseProductConfiguration>().Ignore(c => c.NotLicensedAmount);
             //modelBuilder.Entity<LicenseProductConfiguration>().Ignore(c => c.upc_code);
 
-
             ////LicenseProductRecording
             //modelBuilder.Entity<LicenseProductRecording>().ToTable("LicenseRecording");
             //modelBuilder.Entity<LicenseProductRecording>().HasKey(c => c.LicenseRecordingId);
@@ -285,7 +284,6 @@ namespace UMPG.USL.BackDateProcessor.Data.Infrastructure
             //modelBuilder.Entity<LicenseProductRecordingWriter>().Property(c => c.ExecutedSplit).HasPrecision(9, 6);
             //modelBuilder.Entity<LicenseProductRecordingWriter>().Property(c => c.SplitOverride).HasPrecision(9, 6);
             //modelBuilder.Entity<LicenseProductRecordingWriter>().Property(c => c.ClaimExceptionOverride).HasPrecision(9, 6);
-
 
             //LookUp Tables
             // LU_LicenseTypes
@@ -347,30 +345,13 @@ namespace UMPG.USL.BackDateProcessor.Data.Infrastructure
             modelBuilder.Entity<LU_NoteType>().ToTable("LU_NoteType");
             modelBuilder.Entity<LU_NoteType>().HasKey(c => c.NoteTypeId);
 
-
-
             // LU_TrackType
             modelBuilder.Entity<LU_TrackType>().ToTable("LU_TrackType");
             modelBuilder.Entity<LU_TrackType>().HasKey(c => c.TrackTypeid);
 
-
-
-
             //LicenseProductRecordingWriterNote
             modelBuilder.Entity<LicenseProductRecordingWriterNote>().ToTable("LicenseWriterNote");
             modelBuilder.Entity<LicenseProductRecordingWriterNote>().HasKey(c => c.LicenseWriterNoteId);
-
-
-
-
-
-
-
-
-
-
-
-
 
             //DataHarmonization Relationships
             modelBuilder.Entity<DataHarmonizationQueue>().ToTable("DataHarmonizationQueue");
@@ -744,8 +725,6 @@ namespace UMPG.USL.BackDateProcessor.Data.Infrastructure
             modelBuilder.Entity<LicenseNote>().HasRequired(c => c.NoteType).WithMany().HasForeignKey(c => c.NoteTypeId);
             modelBuilder.Entity<LicenseNote>().HasRequired(c => c.Contact).WithMany().HasForeignKey(c => c.CreatedBy);
 
-
-
             //LicenseSequence
             modelBuilder.Entity<LicenseSequence>().ToTable("LicenseSequence");
             modelBuilder.Entity<LicenseSequence>().HasKey(c => c.LicenseSequenceId);
@@ -867,14 +846,6 @@ namespace UMPG.USL.BackDateProcessor.Data.Infrastructure
             modelBuilder.Entity<ReportType>().ToTable("ReportType");
             modelBuilder.Entity<ReportType>().HasKey(c => c.ReportTypeId);
             modelBuilder.Entity<ReportType>().Property(a => a.ReportTypeName).HasColumnName("ReportType");
-
-
-
-
-
-
-
-
 
             //------------------------------
             base.OnModelCreating(modelBuilder);

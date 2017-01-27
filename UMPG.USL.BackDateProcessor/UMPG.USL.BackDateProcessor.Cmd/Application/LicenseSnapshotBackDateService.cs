@@ -16,29 +16,21 @@ namespace UMPG.USL.BackDateProcessor.Cmd.Application
     {
 
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-        private readonly Timer _pollingTimer;
-        private static IConfigurationManager _configurationManager = new ConfigurationManager();
-        private readonly TimeSpan _timeSpanInterval = TimeSpan.FromSeconds(Convert.ToDouble(_configurationManager.AppSettings["pollInterval"]));
-        private IServiceManager _serviceManager;
+        private readonly IViewManager _viewManager;
+       // private IServiceManager _serviceManager;
 
         public LicenseSnapshotBackDateService()
         {
+
+            _viewManager = new ViewManager(new LicenseManager(new LicenseRepository()));
             //Instantiate timers
-            _pollingTimer = new Timer(_timeSpanInterval.TotalMilliseconds) { AutoReset = false };
-            _pollingTimer.Elapsed += ActivateService;
-            _serviceManager = new ServiceManager(new DataHarmonizationLogManager(), new DataHarmonizationQueueService(new DataHarmonizationQueueRepository(), new DataHarmonizationLogManager(), new SnapshotLicenseRepository()), new DataProcessorService(new TimeSpanUtil()), new DataHarmonizationManager(new DataHarmonizationLogManager(), new LicenseRepository(), new DataHarmonizationQueueService(new DataHarmonizationQueueRepository(), new DataHarmonizationLogManager(), new SnapshotLicenseRepository()), new LicenseProductService(new DataHarmonizationLogManager()), new SnapshotManager(new SnapshotLicenseManager(new SnapshotLicenseRepository(), new SnapshotComposerOriginalPublisherAdminKnownAsRepository(), new SnapshotComposerRepository(), new SnapshotComposerAffiliationRepository(), new SnapshotComposerAffiliationBaseRepository(), new Snapshot_ComposerKnownAsRepository(), new SnapshotComposerOriginalPublisherAffiliationBaseRepository(), new Snapshot_ComposerOriginalPublisherAffiliationRepository(), new Snapshot_ComposerOriginalPublisherRepository(), new Snapshot_ComposerOriginalPublisherKnownAsRepository(), new SnapshotSampleAquisitionLocationCodeRepository(), new SnapshotSampleLocalClientCopyrightRepository(), new SnapshotComposerOriginalPublisherAdministratorRepository(), new SnapshotComposerOriginalPublisherAdminAffiliationRepository(), new SnapshotComposerOriginalPublisherAdminAffiliationBaseRepository(), new SnapshotOriginalPubAffiliationBaseRepository(), new SnapshotAffiliationBaseRepository(), new SnapshotOriginalPublisherAffiliationRepository(), new SnapshotAdminAffiliationBaseRepository(), new SnapshotAdminAffiliationRepository(), new SnapshotAdminKnownAsRepository(), new SnapshotAdministratorRepository(), new LicenseProductConfigurationRepository(), new SnapshotAquisitionLocationCodeRepository(), new SnapshotRecsCopyrightRespository(), new SnapshotSampleRepository(), new SnapshotOriginalPublisherRepository(), new SnapshotKnownAsRepository(), new SnapshotAffiliationRepository(), new SnapshotWorksWriterRepository(), new SnapshotWorkTrackRepository(), new SnapshotLicenseProductRepository(), new SnapshotWorksRecordingRepository(), new SnapshotRecsConfigurationRepository(), new SnapshotProductHeaderRepository(), new SnapshotConfigurationRepository(), new SnapshotArtistRecsRepository(), new SnapshotLabelRepository(), new SnapshotLabelGroupRepository(), new SnapshotLocalClientCopyrightRepository()), new SnapshotLicenseProductManager(new SnapshotLicenseRepository(), new SnapshotComposerOriginalPublisherAdminKnownAsRepository(), new SnapshotComposerRepository(), new SnapshotComposerAffiliationRepository(), new SnapshotComposerAffiliationBaseRepository(), new Snapshot_ComposerKnownAsRepository(), new SnapshotComposerOriginalPublisherAffiliationBaseRepository(), new Snapshot_ComposerOriginalPublisherAffiliationRepository(), new Snapshot_ComposerOriginalPublisherRepository(), new Snapshot_ComposerOriginalPublisherKnownAsRepository(), new SnapshotSampleRepository(), new SnapshotSampleAquisitionLocationCodeRepository(), new SnapshotSampleLocalClientCopyrightRepository(), new SnapshotComposerOriginalPublisherAdministratorRepository(), new SnapshotComposerOriginalPublisherAdminAffiliationRepository(), new SnapshotComposerOriginalPublisherAdminAffiliationBaseRepository(), new SnapshotOriginalPubAffiliationBaseRepository(), new SnapshotOriginalPublisherAffiliationRepository(), new SnapshotAffiliationBaseRepository(), new SnapshotAdminKnownAsRepository(), new SnapshotAdminAffiliationBaseRepository(), new SnapshotAdminAffiliationRepository(), new SnapshotAdministratorRepository(), new SnapshotAquisitionLocationCodeRepository(), new SnapshotRecsCopyrightRespository(), new SnapshotOriginalPublisherRepository(), new SnapshotKnownAsRepository(), new SnapshotAffiliationRepository(), new SnapshotWorksWriterRepository(), new SnapshotWorkTrackRepository(), new SnapshotLicenseProductRepository(), new SnapshotWorksRecordingRepository(), new SnapshotRecsConfigurationRepository(), new SnapshotProductHeaderRepository(), new SnapshotConfigurationRepository(), new SnapshotArtistRecsRepository(), new SnapshotLabelRepository(), new SnapshotLabelGroupRepository(), new SnapshotLocalClientCopyrightRepository()))), new DataHarmonizationQueueRepository(), new SqlConnectionManager());
+            
+            //_serviceManager = new ServiceManager(new DataHarmonizationLogManager(), new DataHarmonizationQueueService(new DataHarmonizationQueueRepository(), new DataHarmonizationLogManager(), new SnapshotLicenseRepository()), new DataProcessorService(new TimeSpanUtil()), new DataHarmonizationManager(new DataHarmonizationLogManager(), new LicenseRepository(), new DataHarmonizationQueueService(new DataHarmonizationQueueRepository(), new DataHarmonizationLogManager(), new SnapshotLicenseRepository()), new LicenseProductService(new DataHarmonizationLogManager()), new SnapshotManager(new SnapshotLicenseManager(new SnapshotLicenseRepository(), new SnapshotComposerOriginalPublisherAdminKnownAsRepository(), new SnapshotComposerRepository(), new SnapshotComposerAffiliationRepository(), new SnapshotComposerAffiliationBaseRepository(), new Snapshot_ComposerKnownAsRepository(), new SnapshotComposerOriginalPublisherAffiliationBaseRepository(), new Snapshot_ComposerOriginalPublisherAffiliationRepository(), new Snapshot_ComposerOriginalPublisherRepository(), new Snapshot_ComposerOriginalPublisherKnownAsRepository(), new SnapshotSampleAquisitionLocationCodeRepository(), new SnapshotSampleLocalClientCopyrightRepository(), new SnapshotComposerOriginalPublisherAdministratorRepository(), new SnapshotComposerOriginalPublisherAdminAffiliationRepository(), new SnapshotComposerOriginalPublisherAdminAffiliationBaseRepository(), new SnapshotOriginalPubAffiliationBaseRepository(), new SnapshotAffiliationBaseRepository(), new SnapshotOriginalPublisherAffiliationRepository(), new SnapshotAdminAffiliationBaseRepository(), new SnapshotAdminAffiliationRepository(), new SnapshotAdminKnownAsRepository(), new SnapshotAdministratorRepository(), new LicenseProductConfigurationRepository(), new SnapshotAquisitionLocationCodeRepository(), new SnapshotRecsCopyrightRespository(), new SnapshotSampleRepository(), new SnapshotOriginalPublisherRepository(), new SnapshotKnownAsRepository(), new SnapshotAffiliationRepository(), new SnapshotWorksWriterRepository(), new SnapshotWorkTrackRepository(), new SnapshotLicenseProductRepository(), new SnapshotWorksRecordingRepository(), new SnapshotRecsConfigurationRepository(), new SnapshotProductHeaderRepository(), new SnapshotConfigurationRepository(), new SnapshotArtistRecsRepository(), new SnapshotLabelRepository(), new SnapshotLabelGroupRepository(), new SnapshotLocalClientCopyrightRepository()), new SnapshotLicenseProductManager(new SnapshotLicenseRepository(), new SnapshotComposerOriginalPublisherAdminKnownAsRepository(), new SnapshotComposerRepository(), new SnapshotComposerAffiliationRepository(), new SnapshotComposerAffiliationBaseRepository(), new Snapshot_ComposerKnownAsRepository(), new SnapshotComposerOriginalPublisherAffiliationBaseRepository(), new Snapshot_ComposerOriginalPublisherAffiliationRepository(), new Snapshot_ComposerOriginalPublisherRepository(), new Snapshot_ComposerOriginalPublisherKnownAsRepository(), new SnapshotSampleRepository(), new SnapshotSampleAquisitionLocationCodeRepository(), new SnapshotSampleLocalClientCopyrightRepository(), new SnapshotComposerOriginalPublisherAdministratorRepository(), new SnapshotComposerOriginalPublisherAdminAffiliationRepository(), new SnapshotComposerOriginalPublisherAdminAffiliationBaseRepository(), new SnapshotOriginalPubAffiliationBaseRepository(), new SnapshotOriginalPublisherAffiliationRepository(), new SnapshotAffiliationBaseRepository(), new SnapshotAdminKnownAsRepository(), new SnapshotAdminAffiliationBaseRepository(), new SnapshotAdminAffiliationRepository(), new SnapshotAdministratorRepository(), new SnapshotAquisitionLocationCodeRepository(), new SnapshotRecsCopyrightRespository(), new SnapshotOriginalPublisherRepository(), new SnapshotKnownAsRepository(), new SnapshotAffiliationRepository(), new SnapshotWorksWriterRepository(), new SnapshotWorkTrackRepository(), new SnapshotLicenseProductRepository(), new SnapshotWorksRecordingRepository(), new SnapshotRecsConfigurationRepository(), new SnapshotProductHeaderRepository(), new SnapshotConfigurationRepository(), new SnapshotArtistRecsRepository(), new SnapshotLabelRepository(), new SnapshotLabelGroupRepository(), new SnapshotLocalClientCopyrightRepository()))), new DataHarmonizationQueueRepository(), new SqlConnectionManager());
         }
 
         private void ActivateService(object sender, System.Timers.ElapsedEventArgs e)
         {
-            Logger.Debug("*********DataHarmonization processor activated.*********");
-            _serviceManager.ProcessQueue();
-            // Logger.Debug("Queue Size: " + _serviceManager.GetQueueCount());
-
-
-
-
-            _pollingTimer.Start();
+   
         }
 
 
@@ -46,16 +38,17 @@ namespace UMPG.USL.BackDateProcessor.Cmd.Application
 
         public bool Start(HostControl hostControl)
         {
-            Logger.Debug("***DataHarmonization service starts.***");
+            Logger.Debug("***LicenseBackDateProcessor service starts.***");
             Console.WriteLine("Is running as console: " + IsRunningAsConsole(hostControl));
             try
             {
-                _pollingTimer.Start();
-                Logger.Info("__ PollingTimer Started*");
+                _viewManager.DisplayWelcomeMessage();
+
+
             }
             catch (Exception failPollingException)
             {
-                Logger.ErrorException("*****************Cannot start DataHarmonization service.", failPollingException);
+                Logger.Error(failPollingException, "*****************Cannot start LicenseBackDateProcessor service.*****************");
 
                 return false;
             }
@@ -64,7 +57,7 @@ namespace UMPG.USL.BackDateProcessor.Cmd.Application
 
         public bool Stop(HostControl hostControl)
         {
-            Logger.Info("*************DataHarmonization service terminated.**************");
+            Logger.Info("*************LicenseBackDateProcessor service terminated.**************");
             return true;
         }
 

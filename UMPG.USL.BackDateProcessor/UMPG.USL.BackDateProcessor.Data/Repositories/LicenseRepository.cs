@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.Linq;
 using UMPG.USL.BackDateProcessor.Data.Infrastructure;
 using UMPG.USL.Models.LicenseModel;
@@ -31,5 +32,67 @@ namespace UMPG.USL.BackDateProcessor.Data.Repositories
                 return license;
             }
         }
+
+        public int GetTotalEIALicenseCount()
+        {
+            using (var context = new DataContext())
+            {
+                var license = context.Licenses
+                    .Count(c => c.LicenseStatusId ==  5 || c.LicenseStatusId == 6 || c.LicenseStatusId == 7);
+                return license;
+            }
+        }
+
+        public int GetTotalLicenseCount()
+        {
+            using (var context = new DataContext())
+            {
+                return context.Licenses
+                    .Count();
+            }
+        }
+
+        public int GetTotalSnapshotLicenseCount()
+        {
+            using (var context = new DataContext())
+            {
+                return context.Snapshot_Licenses
+                    .Count();
+            }
+        }
+
+        public List<int> GetAllEIALicenseIdsThatHAVESnapshot()
+        {
+            using (var context = new DataContext())
+            {
+                var license = context.Snapshot_Licenses.Where(c => c.LicenseStatusId == 5 || c.LicenseStatusId == 6 || c.LicenseStatusId == 7)
+                    .Select(_ => _.CloneLicenseId).ToList();
+                return license;
+            }
+        }
+
+        public List<License> GetAllLicensesForListOfLicenseIds(List<int> licenseIds)
+        {
+            using (var context = new DataContext())
+            {
+                var license =
+                    context.Licenses.Where(
+                        c =>
+                            c.LicenseStatusId == 5 || c.LicenseStatusId == 6 ||
+                            c.LicenseStatusId == 7 && licenseIds.Contains(c.LicenseId)).ToList();
+                return license;
+            }
+        }
+
+        public List<int> GetAllEIALicenseIds()
+        {
+            using (var context = new DataContext())
+            {
+                var license = context.Licenses.Where(c => c.LicenseStatusId == 5 || c.LicenseStatusId == 6 || c.LicenseStatusId == 7)
+                    .Select(_ => _.LicenseId).ToList();
+                return license;
+            }
+        }
+
     }
 }

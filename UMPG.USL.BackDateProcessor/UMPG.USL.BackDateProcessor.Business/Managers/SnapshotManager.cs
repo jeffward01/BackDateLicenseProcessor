@@ -24,7 +24,6 @@ namespace UMPG.USL.BackDateProcessor.Business.Managers
         {
             return _snapshotLicenseManager.DoesSnapshotExists(licenseId);
         }
-
         public Snapshot_License GeLicenseSnapshotByLicenseId(int licenseId)
         {
             return _snapshotLicenseManager.GetSnapshotLicenseBySnapshotLicenseId(licenseId);
@@ -51,8 +50,13 @@ namespace UMPG.USL.BackDateProcessor.Business.Managers
             return true;
         }
 
+        public bool DeleteLicenseSnapshot(int licenseSnapshotId)
+        {
+            return _snapshotLicenseManager.DeleteLicenseSnapshotAndAllChildren(licenseSnapshotId);
+        }
+
         private bool SaveLocalLicenseProductSnapshot(List<LicenseProduct> localLicenseProducts,
-            Snapshot_License savedSnapshotLicense)
+     Snapshot_License savedSnapshotLicense)
         {
             try
             {
@@ -71,11 +75,6 @@ namespace UMPG.USL.BackDateProcessor.Business.Managers
                 throw new Exception("Error saving snapshot.  Error: " + e.ToString());
             }
             return true;
-        }
-
-        public bool DeleteLicenseSnapshot(int licenseSnapshotId)
-        {
-            return _snapshotLicenseManager.DeleteLicenseSnapshotAndAllChildren(licenseSnapshotId);
         }
 
         #region CastToSnapshot
