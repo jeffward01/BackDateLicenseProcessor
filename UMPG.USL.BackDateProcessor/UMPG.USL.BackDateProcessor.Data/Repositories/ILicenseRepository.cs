@@ -13,5 +13,6 @@ namespace UMPG.USL.BackDateProcessor.Data.Repositories
         List<int> GetAllEIALicenseIds();
         List<License> GetAllLicensesForListOfLicenseIds(List<int> licenseIds);
         List<int> GetAllEIALicenseIdsThatHAVESnapshot();
+        License GetLicenseForLicenseNumber(string licenseNumber);
     }
 }

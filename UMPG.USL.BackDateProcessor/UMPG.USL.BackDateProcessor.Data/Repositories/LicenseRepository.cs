@@ -94,5 +94,15 @@ namespace UMPG.USL.BackDateProcessor.Data.Repositories
             }
         }
 
+        public License GetLicenseForLicenseNumber(string licenseNumber)
+        {
+            using (var context = new DataContext())
+            {
+                var license = context.Licenses
+                    .FirstOrDefault(c => c.LicenseNumber == licenseNumber);
+                return license;
+            }
+        }
+
     }
 }
