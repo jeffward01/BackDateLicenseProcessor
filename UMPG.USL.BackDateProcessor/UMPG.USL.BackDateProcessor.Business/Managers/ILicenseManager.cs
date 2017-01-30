@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UMPG.USL.Models.DataHarmonization;
 using UMPG.USL.Models.LicenseModel;
 
 namespace UMPG.USL.BackDateProcessor.Business.Managers
@@ -9,5 +10,6 @@ namespace UMPG.USL.BackDateProcessor.Business.Managers
         int GetCountForEIARequireSnapshots();
         List<License> GetAllEIALicensesThatRequireASnapshot();
         int GetCountForEIAHaveSnapshots();
+        List<LicenseError> GetLicensesWithErrors();
     }
 }

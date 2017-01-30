@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using UMPG.USL.Models.DataHarmonization;
+using UMPG.USL.Models.LicenseModel;
 
 namespace UMPG.USL.BackDateProcessor.Business.Managers
 {
     public class ViewManager : IViewManager
     {
         private readonly ILicenseManager _licenseManager;
-
-        public ViewManager(ILicenseManager licenseManager)
+        private readonly IValidationManger _validationManger;
+        public ViewManager(ILicenseManager licenseManager, IValidationManger validationManger)
         {
+            _validationManger = validationManger;
             _licenseManager = licenseManager;
         }
 
@@ -25,8 +28,8 @@ namespace UMPG.USL.BackDateProcessor.Business.Managers
             Console.Clear();
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine("----------------------------------------------------------------");
-            DisplayLicensesThatRequireSnapshots();
-      
+            //  DisplayLicensesThatRequireSnapshots();
+            DisplayNavOptions();
 
 
         }
@@ -35,12 +38,17 @@ namespace UMPG.USL.BackDateProcessor.Business.Managers
         {
             Console.WriteLine("Eldest 100 Licenses that require snapshots: ");
             var licenses = _licenseManager.GetAllEIALicensesThatRequireASnapshot();
-            Console.WriteLine("Index    |    LicenseNumber    |   LicenseName  |  Created Date");
+            DisplayGridOfLicenses(licenses);
+            GetInputFromListOfUnSnapshottedLicenses();
+        }
+
+        private void DisplayGridOfLicenses(List<License> licenses)
+        {
+            Console.WriteLine("Index    | LicenseId |  LicenseNumber    |   LicenseName  |  Created Date");
             foreach (var license in licenses)
             {
-                Console.WriteLine(licenses.IndexOf(license) + 1 + "). " + license.LicenseNumber + " - " + license.LicenseName + "  - " + license.CreatedDate.ToString().Split(' ').First());
+                Console.WriteLine(licenses.IndexOf(license) + 1 + "). " + license.LicenseId + "- " + license.LicenseNumber + " - " + license.LicenseName + "  - " + license.CreatedDate.ToString().Split(' ').First());
             }
-            GetInputFromListOfUnSnapshottedLicenses();
         }
 
 
@@ -59,8 +67,9 @@ namespace UMPG.USL.BackDateProcessor.Business.Managers
             {
                 Console.WriteLine("Starting snapshot process for license number: " + licenseNumber);    
                 Console.WriteLine("Validation step...");
-                var validationManager = new ValidationManger(licenseNumber);
-                var successOrErrorMessage = validationManager.Validate();
+
+                var successOrErrorMessage = _validationManger.Validate(licenseNumber);
+                
                 Console.WriteLine(successOrErrorMessage);
             }
 
@@ -69,38 +78,51 @@ namespace UMPG.USL.BackDateProcessor.Business.Managers
 
         private void SnapshotProcessCompletePostMessage()
         {
-            Console.WriteLine("All your licenses have either been snapshotted or logged with errors.");
-            Console.WriteLine("What would you like to do? \n  Press 1. to view list of licenses that require a snapshot");
-            Console.WriteLine("Press 2. to view licenses with errors");
-            Console.WriteLine("Press 3. to exit");
-            GetSnapshotPostInput();
+            Console.WriteLine("\n All your licenses have either been snapshotted or logged with errors.");
+
+       
 
 
         }
 
-        private void GetSnapshotPostInput()
+        private void DisplayNavOptions()
         {
-            var answer = Console.ReadLine();
-            while (answer != "1" || answer != "2" || answer != "3")
-            {
-                GetSnapshotPostInput();
-            }
+            Console.WriteLine("\n \n What would you like to do? \nPress 1. to view list of licenses that require a snapshot");
+            Console.WriteLine("Press 2. to view licenses with errors");
+            Console.WriteLine("Press 3. to exit");
+            var feedback = Console.ReadLine();
+            var answer = feedback[0];
 
-            if (answer == "1")
+         
+            if (answer == '1')
             {
+                Console.Clear();
                 DisplayLicensesThatRequireSnapshots();
             }
-            if (answer == "2")
+            if (answer == '2')
             {
+                Console.Clear();
+                DisplayLicensesWithErrors();
                 //View errors
             }
-            if (answer == "3")
+            if (answer == '3')
             {
+                Console.Clear();
                 Console.WriteLine("Good bye!!");
                 Console.WriteLine("Please press any key to exit...");
                 Console.ReadLine();
                 Environment.Exit(0);
             }
+            else
+            {
+
+
+               
+                Console.Clear();
+
+                DisplayNavOptions();
+            }
+
         }
 
         private List<string> GetLicenseNumbersToSnapshot()
@@ -123,5 +145,31 @@ namespace UMPG.USL.BackDateProcessor.Business.Managers
             }
             return listOfLicenseNumbers;
         }
+
+
+        private void DisplayLicensesWithErrors()
+        {
+            var licensesWithErrors = _licenseManager.GetLicensesWithErrors();
+
+            DisplayGridOfLicenseErrors(licensesWithErrors);
+         
+        }
+        private void DisplayGridOfLicenseErrors(List<LicenseError> licenseErrors)
+        {
+            Console.WriteLine("Index    | LicenseId |  LicenseNumber    |   LicenseName  |  Created Date");
+            foreach (var licenseError in licenseErrors)
+            {
+                Console.WriteLine(licenseErrors.IndexOf(licenseError) + 1 + "). " + licenseError.License.LicenseId + "- " + licenseError.License.LicenseNumber + " - " + licenseError.License.LicenseName + "  - " + licenseError.License.CreatedDate.ToString().Split(' ').First());
+                foreach (var error in licenseError.LicenseErrorInfo.LicenseErrors)
+                {
+                    Console.WriteLine("           Error: " + error.LicenseError);
+                }
+                Console.WriteLine("\n");
+            }
+            DisplayNavOptions();
+        }
+
+ 
+
     }
 }

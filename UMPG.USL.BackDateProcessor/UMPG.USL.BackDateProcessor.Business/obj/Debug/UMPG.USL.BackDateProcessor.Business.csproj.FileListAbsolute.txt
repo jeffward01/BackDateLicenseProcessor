@@ -1,4 +1,3 @@
-C:\Dev\projects\USL\svn\trunks\Source\BackDateSnapshotProcessor\UMPG.USL.BackDateProcessor\UMPG.USL.BackDateProcessor.Business\obj\Debug\UMPG.USL.BackDateProcessor.Business.csprojResolveAssemblyReference.cache
 C:\Dev\projects\USL\svn\trunks\Source\BackDateSnapshotProcessor\UMPG.USL.BackDateProcessor\UMPG.USL.BackDateProcessor.Business\bin\Debug\UMPG.USL.BackDateProcessor.Business.dll
 C:\Dev\projects\USL\svn\trunks\Source\BackDateSnapshotProcessor\UMPG.USL.BackDateProcessor\UMPG.USL.BackDateProcessor.Business\bin\Debug\UMPG.USL.BackDateProcessor.Business.pdb
 C:\Dev\projects\USL\svn\trunks\Source\BackDateSnapshotProcessor\UMPG.USL.BackDateProcessor\UMPG.USL.BackDateProcessor.Business\bin\Debug\Newtonsoft.Json.dll
@@ -23,5 +22,6 @@ C:\Dev\projects\USL\svn\trunks\Source\BackDateSnapshotProcessor\UMPG.USL.BackDat
 C:\Dev\projects\USL\svn\trunks\Source\BackDateSnapshotProcessor\UMPG.USL.BackDateProcessor\UMPG.USL.BackDateProcessor.Business\bin\Debug\AWSSDK.Core.xml
 C:\Dev\projects\USL\svn\trunks\Source\BackDateSnapshotProcessor\UMPG.USL.BackDateProcessor\UMPG.USL.BackDateProcessor.Business\bin\Debug\EntityFramework.xml
 C:\Dev\projects\USL\svn\trunks\Source\BackDateSnapshotProcessor\UMPG.USL.BackDateProcessor\UMPG.USL.BackDateProcessor.Business\bin\Debug\Castle.Core.xml
+C:\Dev\projects\USL\svn\trunks\Source\BackDateSnapshotProcessor\UMPG.USL.BackDateProcessor\UMPG.USL.BackDateProcessor.Business\obj\Debug\UMPG.USL.BackDateProcessor.Business.csprojResolveAssemblyReference.cache
 C:\Dev\projects\USL\svn\trunks\Source\BackDateSnapshotProcessor\UMPG.USL.BackDateProcessor\UMPG.USL.BackDateProcessor.Business\obj\Debug\UMPG.USL.BackDateProcessor.Business.dll
 C:\Dev\projects\USL\svn\trunks\Source\BackDateSnapshotProcessor\UMPG.USL.BackDateProcessor\UMPG.USL.BackDateProcessor.Business\obj\Debug\UMPG.USL.BackDateProcessor.Business.pdb

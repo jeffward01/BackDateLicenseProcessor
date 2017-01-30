@@ -213,6 +213,10 @@ namespace UMPG.USL.BackDateProcessor.Data.Infrastructure
 
         public DbSet<DataHarmonizationQueue> DataHarmonizationQueues { get; set; }
 
+        public DbSet<BackDateLicenseChanged> BackDateLicenseChanges { get; set; }
+
+        public DbSet<BackDateLicenseError> BackDateLicenseErrors { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //Mechs Relationships
@@ -569,6 +573,17 @@ namespace UMPG.USL.BackDateProcessor.Data.Infrastructure
 
             modelBuilder.Entity<Snapshot_AffiliationBase>().ToTable("Snapshot_AffiliationBase");
             modelBuilder.Entity<Snapshot_AffiliationBase>().HasKey(_ => _.SnapshotAffiliationBaseId);
+
+
+            modelBuilder.Entity<BackDateLicenseChanged>().ToTable("BackDateLicenseChanged");
+            modelBuilder.Entity<BackDateLicenseChanged>().HasKey(_ => _.BackDateLicenseChangedId);
+            modelBuilder.Entity<BackDateLicenseChanged>().HasMany(_ => _.LicenseErrors).WithOptional().HasForeignKey(_ => _.BackDateLicenseChangedId).WillCascadeOnDelete(true); 
+
+
+            modelBuilder.Entity<BackDateLicenseError>().ToTable("BackDateLicenseError");
+            modelBuilder.Entity<BackDateLicenseError>().HasKey(_ => _.BackDateLicenseErrorId);
+
+
             //-------------------------------------
 
             // Contacts

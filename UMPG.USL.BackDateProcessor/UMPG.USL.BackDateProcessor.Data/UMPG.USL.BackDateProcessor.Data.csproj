@@ -62,6 +62,10 @@
     <Compile Include="RecsConfiguration\IRecsConfigurationRetrieverService.cs" />
     <Compile Include="RecsConfiguration\RecsConfiguration.cs" />
     <Compile Include="RecsConfiguration\RecsConfigurationRetrieverService.cs" />
+    <Compile Include="Repositories\BackDateLicenseSnapshot\BackDateLicenseChangedRepository.cs" />
+    <Compile Include="Repositories\BackDateLicenseSnapshot\BackDateLicenseErrorRepository.cs" />
+    <Compile Include="Repositories\BackDateLicenseSnapshot\IBackDateLicenseChangedRepository.cs" />
+    <Compile Include="Repositories\BackDateLicenseSnapshot\IBackDateLicenseErrorRepository.cs" />
     <Compile Include="Repositories\DataHarmonizationQueueRepository.cs" />
     <Compile Include="Repositories\IDataHarmonizationQueueRepository.cs" />
     <Compile Include="Repositories\ILicenseProductConfigurationRepository.cs" />

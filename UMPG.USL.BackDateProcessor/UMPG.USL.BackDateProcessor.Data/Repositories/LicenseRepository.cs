@@ -75,12 +75,18 @@ namespace UMPG.USL.BackDateProcessor.Data.Repositories
         {
             using (var context = new DataContext())
             {
-                var license =
-                    context.Licenses.Where(
-                        c =>
-                            c.LicenseStatusId == 5 || c.LicenseStatusId == 6 ||
-                            c.LicenseStatusId == 7 && licenseIds.Contains(c.LicenseId)).ToList();
-                return license;
+
+
+               var licenses = context.Licenses.Where(
+                    c => licenseIds.Contains(c.LicenseId) && c.LicenseStatusId == 5 || c.LicenseStatusId == 6 ||
+                         c.LicenseStatusId == 7).ToList();
+                //var license =
+                //    context.Licenses.Where(
+                //        c =>
+                //            c.LicenseStatusId == 5 || c.LicenseStatusId == 6 ||
+                //            c.LicenseStatusId == 7 && licenseIds.Contains(c.LicenseId)).ToList();
+                //return license;
+                return licenses;
             }
         }
 
@@ -101,6 +107,24 @@ namespace UMPG.USL.BackDateProcessor.Data.Repositories
                 var license = context.Licenses
                     .FirstOrDefault(c => c.LicenseNumber == licenseNumber);
                 return license;
+            }
+        }
+
+
+        public int GetLicenseErrorCount()
+        {
+            using (var context = new DataContext())
+            {
+                return context.BackDateLicenseChanges.Count();
+            }
+        }
+
+        public List<int> GetAllLicenseIdsWithErrors()
+        {
+            using (var context = new DataContext())
+            {
+                return context.BackDateLicenseChanges.Select(_ => _.LicenseId).ToList();
+                
             }
         }
 

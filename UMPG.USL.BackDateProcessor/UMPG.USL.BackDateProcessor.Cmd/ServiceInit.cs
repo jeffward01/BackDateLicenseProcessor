@@ -11,8 +11,10 @@ using Topshelf.Autofac;
 using UMPG.USL.BackDateProcessor.Business;
 using UMPG.USL.BackDateProcessor.Business.Logging;
 using UMPG.USL.BackDateProcessor.Business.Managers;
+using UMPG.USL.BackDateProcessor.Business.Providers;
 using UMPG.USL.BackDateProcessor.Business.Services;
 using UMPG.USL.BackDateProcessor.Cmd.Application;
+using UMPG.USL.BackDateProcessor.Data.Repositories.BackDateLicenseSnapshot;
 
 namespace UMPG.USL.BackDateProcessor.Cmd
 {
@@ -40,6 +42,12 @@ namespace UMPG.USL.BackDateProcessor.Cmd
                 .Where(t => t.Name.EndsWith("Manager"))
                 .AsImplementedInterfaces();
 
+
+
+            builder.RegisterType<BackDateLicenseChangedRepository>().As<IBackDateLicenseChangedRepository>();
+            builder.RegisterType<BackDateLicenseErrorRepository>().As<IBackDateLicenseErrorRepository>();
+
+            
             builder.RegisterType<TimeSpanUtil>().As<ITimeSpanUtil>();
             builder.RegisterType<ServiceManager>().As<IServiceManager>();
             builder.RegisterType<ConfigurationManager>().As<IConfigurationManager>();
@@ -49,6 +57,11 @@ namespace UMPG.USL.BackDateProcessor.Cmd
             builder.RegisterType<SnapshotManager>().As<ISnapshotManager>();
             builder.RegisterType<SnapshotLicenseProductManager>().As<ISnapshotLicenseProductManager>();
             builder.RegisterType<DataHarmonizationManager>().As<IDataHarmonizationManager>();
+            builder.RegisterType<MechsDataProvider>().As<IMechsDataProvider>();
+            builder.RegisterType<ValidationManger>().As<IValidationManger>();
+
+            
+
             var container = builder.Build();
 
 

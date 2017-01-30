@@ -82,6 +82,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\UMPG.USL.Common\UMPG.USL.Common.csproj">
+      <Project>{72C862BE-D318-4118-BD78-FB9E2DB99A4D}</Project>
+      <Name>UMPG.USL.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UMPG.USL.BackDateProcessor.Business\UMPG.USL.BackDateProcessor.Business.csproj">
       <Project>{9BCBA846-5453-4495-9401-30B4DC6438AC}</Project>
       <Name>UMPG.USL.BackDateProcessor.Business</Name>
